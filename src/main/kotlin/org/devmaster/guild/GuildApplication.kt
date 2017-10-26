@@ -12,15 +12,8 @@ class GuildApplication {
 
     @Bean
     fun createSomeProducts(repository: ProductRepository) = CommandLineRunner {
-        var p = Product()
-        p.name = "Mouse"
-        p.sku = "M001"
-        repository.save(p)
-
-        p = Product()
-        p.name = "Monitor"
-        p.sku = "M002"
-        repository.save(p)
+        repository.save(Product("Mouse", "M001"))
+        repository.save(Product("Monitor", "M002"))
     }
 
 }

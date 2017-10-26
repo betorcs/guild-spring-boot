@@ -2,14 +2,15 @@ package org.devmaster.guild.model
 
 import javax.persistence.*
 
-@Entity @Table(name = "products")
-class Product {
+@Entity
+@Table(name = "products")
+data class Product(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null
-    var name: String? = null
+        var name: String,
 
-    @Column(unique = true)
-    var sku: String? = null
-}
+        @Column(unique = true)
+        var sku: String,
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        var id: Long? = null)
