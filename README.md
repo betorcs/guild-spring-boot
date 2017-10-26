@@ -10,15 +10,15 @@ You need in your machine [JDK 1.8+](http://www.oracle.com/technetwork/pt/java/ja
 
 Clone project 
 ```bash 
-git clone git@github.com:betorcs/guild-spring-boot.git
+$ git clone git@github.com:betorcs/guild-spring-boot.git
 ```
 
 ### Launching application
 
 ```bash
-cd guild-spring-boot/
-set GRADLE_OPTS=-Xms64m -Xmx128m
-./gradlew bootRun
+$ cd guild-spring-boot/
+$ set GRADLE_OPTS=-Xms64m -Xmx128m
+$ ./gradlew bootRun
 ```
 
 ### Access database
@@ -31,7 +31,7 @@ Using browser access [http://localhost:8080/h2](http://localhost:8080/h2)
 * Fetch products
 
 ```bash
-curl -XGET http://localhost:8080/product
+$ curl -XGET http://localhost:8080/product
 
 [
   {
@@ -50,7 +50,7 @@ curl -XGET http://localhost:8080/product
 * Add product
 
 ```bash
-curl -XPOST http://localhost:8080/product -H "Content-Type: application/json" -d '
+$ curl -XPOST http://localhost:8080/product -H "Content-Type: application/json" -d '
 {
     "name": "Trackpad",
     "sku": "T234"
@@ -66,7 +66,7 @@ curl -XPOST http://localhost:8080/product -H "Content-Type: application/json" -d
 * Get product by sku
 
 ```bash
-curl -XGET http://localhost:8080/product/M002
+$ curl -XGET http://localhost:8080/product/M002
 
 {
   "name": "Monitor",
@@ -78,5 +78,13 @@ curl -XGET http://localhost:8080/product/M002
 * Delete product by product ID
 
 ```bash
-curl -XDELETE http://localhost:8080/product/2
+$ curl -XDELETE http://localhost:8080/product/2
+```
+
+### Building and lauching application in port 20400
+
+```bash
+$ ./gradlew bootRepackage
+$ cd build/libs/
+$ java -Xms64m -Xmx128m -jar guild-spring-boot-0.0.1-SNAPSHOT.jar --server.port=20400
 ```
