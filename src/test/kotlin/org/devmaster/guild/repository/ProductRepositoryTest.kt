@@ -35,7 +35,7 @@ class ProductRepositoryTest {
 
         // Then
         assertNotNull(product)
-        assertEquals("Monitor", product.name)
+        assertEquals("Monitor", product?.name)
     }
 
     @Test(expected = Exception::class)

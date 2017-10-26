@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 
 interface ProductRepository : CrudRepository<Product, Long> {
-    fun findOneBySku(sku: String): Product
+    fun findOneBySku(sku: String): Product?
 }
