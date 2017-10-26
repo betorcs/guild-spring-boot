@@ -24,6 +24,15 @@ class ProductRepositoryTest {
         emf.createEntityManager()
     }
 
+    @Test(expected = Exception::class)
+    fun whenAddProductWithExistingSku_shouldFail() {
+        // Prepare
+        initDbWithProducts(arrayOf(Product("Mouse", "M001")))
+
+        // When
+        repository.save(Product("Monitor", "M001"))
+    }
+
     @Test
     fun shouldPersistProductSuccessfully() {
         // Prepare
@@ -35,6 +44,16 @@ class ProductRepositoryTest {
         // Then
         assertEquals(1, repository.count())
 
+    }
+
+    fun initDbWithProducts(products: Array<Product>) {
+        clear()
+
+        em.transaction.begin()
+        products.forEach {
+            em.persist(it)
+        }
+        em.transaction.commit()
     }
 
     fun clear() {
