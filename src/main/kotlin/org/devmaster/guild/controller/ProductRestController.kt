@@ -2,34 +2,22 @@ package org.devmaster.guild.controller
 
 import org.devmaster.guild.model.Product
 import org.devmaster.guild.repository.ProductRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-class ProductRestController {
+class ProductRestController(var repository: ProductRepository) {
 
-    @Autowired
-    lateinit var repository: ProductRepository
+    @PostMapping("/product")
+    fun save(@Valid @RequestBody product: Product) = repository.save(product)
 
-    @PostMapping(path = arrayOf("/product"))
-    fun save(@Valid @RequestBody product: Product): Product {
-        return repository.save(product)
-    }
+    @DeleteMapping("/product/{productId}")
+    fun delete(@PathVariable productId: Long) = repository.delete(productId)
 
-    @DeleteMapping(path = arrayOf("/product/{productId}"))
-    fun delete(@PathVariable productId: Long) {
-        repository.delete(productId)
-    }
+    @GetMapping("/product/{sku}")
+    fun findBySku(@PathVariable sku: String) = repository.findOneBySku(sku)
 
-    @GetMapping(path = arrayOf("/product/{sku}"))
-    fun findBySku(@PathVariable sku: String): Product? {
-        return repository.findOneBySku(sku)
-    }
-
-    @GetMapping(path = arrayOf("/products"))
-    fun findAll(): MutableIterable<Product>? {
-        return repository.findAll()
-    }
+    @GetMapping("/products")
+    fun findAll() = repository.findAll()
 
 }
