@@ -17,6 +17,7 @@ git clone git@github.com:betorcs/guild-spring-boot.git
 
 ```bash
 cd guild-spring-boot/
+set GRADLE_OPTS=-Xms64m -Xmx128m
 ./gradlew bootRun
 ```
 
