@@ -2,6 +2,7 @@ package org.devmaster.guild.repository
 
 import org.devmaster.guild.model.Product
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,6 +23,19 @@ class ProductRepositoryTest {
 
     private val em: EntityManager by lazy {
         emf.createEntityManager()
+    }
+
+    @Test
+    fun shouldFindProductBySky() {
+        // Given
+        initDbWithProducts(arrayOf(Product("Mouse", "M001"), Product("Monitor", "M002")))
+
+        // When
+        val product = repository.findOneBySku("M002")
+
+        // Then
+        assertNotNull(product)
+        assertEquals("Monitor", product.name)
     }
 
     @Test(expected = Exception::class)

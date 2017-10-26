@@ -4,4 +4,6 @@ import org.devmaster.guild.model.Product
 import org.springframework.data.repository.CrudRepository
 
 
-interface ProductRepository : CrudRepository<Product, Long>
+interface ProductRepository : CrudRepository<Product, Long> {
+    fun findOneBySku(sku: String): Product
+}
