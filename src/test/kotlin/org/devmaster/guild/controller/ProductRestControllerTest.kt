@@ -22,9 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner
 @AutoConfigureMockMvc
 class ProductRestControllerTest {
 
-    @LocalServerPort
-    var port: Int = 0
-
     @MockBean
     lateinit var repository: ProductRepository
 
@@ -47,7 +44,7 @@ class ProductRestControllerTest {
 
 
         // When
-        val response = restTemplate.postForEntity("http://localhost:$port/product", entity, Product::class.java)
+        val response = restTemplate.postForEntity("/product", entity, Product::class.java)
 
 
         // Then
@@ -64,7 +61,7 @@ class ProductRestControllerTest {
         val productIdCaptor = ArgumentCaptor.forClass(Long::class.java)
 
 
-        restTemplate.delete("http://localhost:$port/product/$productId")
+        restTemplate.delete("/product/$productId")
 
         Mockito.verify(repository).delete(productIdCaptor.capture())
 
@@ -78,7 +75,7 @@ class ProductRestControllerTest {
 
         Mockito.`when`(repository.findOneBySku(sku)).thenReturn(product)
 
-        val response = restTemplate.getForEntity("http://localhost:$port/product/$sku", Product::class.java)
+        val response = restTemplate.getForEntity("/product/$sku", Product::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
         assertEquals(product, response.body)
@@ -91,7 +88,7 @@ class ProductRestControllerTest {
                 .thenReturn(products)
 
         val response = restTemplate.exchange(
-                "http://localhost:$port/products",
+                "/products",
                 HttpMethod.GET,
                 null,
                 object : ParameterizedTypeReference<List<Product>>(){})
